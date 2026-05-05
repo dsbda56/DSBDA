@@ -1,0 +1,52 @@
+import nltk
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+from nltk.tokenize import TreebankWordTokenizer
+from nltk import pos_tag
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+
+nltk.download('stopwords')
+nltk.download('wordnet')
+
+
+try:
+    nltk.download('averaged_perceptron_tagger_eng')
+except:
+    nltk.download('averaged_perceptron_tagger')
+
+
+
+document = "Text analytics is the process of deriving meaningful information from text data using NLP techniques."
+
+
+tokenizer = TreebankWordTokenizer()
+tokens = tokenizer.tokenize(document)
+print("Tokens:")
+print(tokens)
+
+
+pos_tags = pos_tag(tokens)
+print("\nPOS Tags:")
+print(pos_tags)
+
+
+
+stop_words = set(stopwords.words('english'))
+filtered_tokens = [w for w in tokens if w.lower() not in stop_words]
+print("\nAfter Stop Words Removal:")
+print(filtered_tokens)
+
+
+
+stemmer = PorterStemmer()
+stemmed_words = [stemmer.stem(w) for w in filtered_tokens]
+print("\nStemmed Words:")
+print(stemmed_words)
+
+
+
+lemmatizer = WordNetLemmatizer()
+lemmatized_words = [lemmatizer.lemmatize(w) for w in filtered_tokens]
+print("\nLemmatized Words:")
+print(lemmatized_words)

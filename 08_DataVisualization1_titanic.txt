@@ -1,0 +1,19 @@
+import seaborn as sns
+import matplotlib.pyplot as plt
+titanic = sns.load_dataset('titanic')
+
+
+
+print(titanic.head())
+
+
+
+plt.figure()
+plt.hist(titanic['fare'], bins=30)
+plt.title('Distribution of Ticket Fare')
+plt.xlabel('Fare')
+plt.ylabel('Number of Passengers')
+plt.show()
+
+
+

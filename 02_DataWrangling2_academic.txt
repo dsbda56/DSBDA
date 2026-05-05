@@ -1,0 +1,44 @@
+import pandas as pdimport 
+import numpy as np
+
+
+data={
+    "Student_ID":[1,2,3,4,5,6,7,8],
+    "Marks": [78, 85, np.nan, 92, 120, 65, 30, 88],
+    "Attendance": [85, 90, 75, np.nan, 95, 60, 40, 88],
+    "Study_Hours": [2, 3, 4, 5, 15, 1, 0.5, 3],
+    "Grade": ["B", "A", "B", "A", "A", "C", None, "A"]
+}
+df=pd.DataFrame(data)
+print(df)
+
+
+print(df.isnull().sum())
+
+
+df["Marks"] = df["Marks"].fillna(df["Marks"].mean())
+df["Attendance"] = df["Attendance"].fillna(df["Attendance"].mean())
+df["Grade"] = df["Grade"].fillna(df["Grade"].mode()[0])
+df["Marks"] = np.where(df["Marks"] > 100, 100, df["Marks"])
+print(df)
+
+
+Q1 = df["Study_Hours"].quantile(0.25)
+Q3 = df["Study_Hours"].quantile(0.75)
+IQR = Q3 - Q1
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+
+print("Outliers:", df[(df["Study_Hours"] < lower_bound) | (df["Study_Hours"] > upper_bound)])
+
+
+df["Study_Hours"] = np.where(
+    df["Study_Hours"] > upper_bound,
+    upper_bound,
+    df["Study_Hours"]
+)
+
+df["Log_Study_Hours"] = np.log(df["Study_Hours"] + 1)
+
+print(df)

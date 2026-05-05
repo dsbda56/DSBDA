@@ -1,0 +1,18 @@
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+
+data = sns.load_dataset("iris")
+
+
+
+numeric_data = data.drop("species", axis=1)
+
+corr_matrix = numeric_data.corr()
+
+
+
+plt.figure(figsize=(8, 6))
+sns.heatmap(corr_matrix, annot=True, cmap="coolwarm")
+plt.title("Correlation Heatmap of Iris Dataset")
+plt.show()

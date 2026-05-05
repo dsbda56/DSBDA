@@ -1,0 +1,37 @@
+##3(a) and 3(b)
+
+import pandas as pd
+
+
+import pandas as pd
+data = {
+    "Age_Group": ["20-30", "20-30", "30-40", "30-40", "40-50", "40-50", "20-30", "30-40"],
+    "Income": [25000, 28000, 40000, 42000, 55000, 58000, 30000, 39000]
+}
+df = pd.DataFrame(data)
+print(df)
+
+
+grouped_stats = df.groupby("Age_Group")["Income"].agg(
+    ["mean", "median", "min", "max", "std"]
+)
+print(grouped_stats)
+
+
+
+income_list = df.groupby("Age_Group")["Income"].apply(list)
+print(income_list)
+
+
+import pandas as pd
+columns = ["sepal_length", "sepal_width", "petal_length", "petal_width", "species"]
+url = "Iris.csv"
+
+# Load dataset
+iris = pd.read_csv(url, header=None, names=columns)
+
+# Filter only Iris-setosa
+setosa = iris[iris["species"] == "Iris-setosa"]
+
+# Print statistics (drop species column)
+print(setosa.drop(columns=["species"]).describe())

@@ -1,0 +1,31 @@
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import LabelEncoder,StandardScaler
+
+url="Iris.csv"
+
+column_names=["sepal_length","sepal_width","petal_length","petal_width","species"]
+df=pd.read_csv(url,header=None,names=column_names)
+
+df.head()
+
+df.isnull().sum()
+
+df.describe()
+
+df.info()
+
+df.shape
+
+df.dtypes
+
+label_encoder=LabelEncoder()
+df['species_encoded']=label_encoder.fit_transform(df['species'])
+
+scaler=StandardScaler()
+
+numeric_features = df.select_dtypes(include=['int64', 'float64']).columns
+df[numeric_features] = scaler.fit_transform(df[numeric_features])
+
+
+df.head()
